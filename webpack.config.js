@@ -1,4 +1,5 @@
 import path from 'path'
+import dotenv from 'dotenv'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import NodePolyfillPlugin from "node-polyfill-webpack-plugin"
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
@@ -67,7 +68,10 @@ const dev = (version) => ({
             inlineSource: '.(js|css)$'
         }),
         new CleanWebpackPlugin(),
-        new webpack.DefinePlugin({ 'VERSION': JSON.stringify(version) }),
+        new webpack.DefinePlugin({
+            'VERSION': JSON.stringify(version),
+            'MODE': JSON.stringify(process.env.MODE)
+        }),
         new NodePolyfillPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({ 'process.env.dev': true })
@@ -133,7 +137,10 @@ const production = (version) => ({
             filename: "./index.html"
         }),
         new CleanWebpackPlugin(),
-        new webpack.DefinePlugin({ 'VERSION': JSON.stringify(version) }),
+        new webpack.DefinePlugin({
+            'VERSION': JSON.stringify(version),
+            'MODE': JSON.stringify(process.env.MODE)
+        }),
         new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks 
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
@@ -148,9 +155,11 @@ const production = (version) => ({
 
 export default (env, argv) => {
     if (env.dev) {
+        dotenv.config({ path: `./.env.dev` })
         return dev(argv.name)
     }
     if (env.production) {
+        dotenv.config({ path: `./.env.production` })
         return production(argv.name)
     }
     console.log('Build env not set.')

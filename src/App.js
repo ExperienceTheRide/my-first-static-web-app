@@ -21,6 +21,7 @@ function App() {
     <div>The time is now {Date()}.</div>
     <div>{greeting}</div>
     <div>The version is {VERSION}</div>
+    <div>The mode is {MODE}</div>
   </div>
 
 }
