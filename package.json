@@ -1,6 +1,6 @@
 {
   "name": "hello",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "devDependencies": {
@@ -39,8 +39,8 @@
     "react-router-dom": "^6.0.2"
   },
   "scripts": {
-    "start": "webpack-dev-server --open --env dev",
-    "build": "webpack --env production",
+    "start": "webpack-dev-server --open --env dev --name ${npm_package_version}",
+    "build": "webpack --env production --name ${npm_package_version}",
     "test": "jest --coverage",
     "watch-test": "jest --watch --coverage"
   },

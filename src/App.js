@@ -20,6 +20,7 @@ function App() {
     <div>Hello {value}</div>
     <div>The time is now {Date()}.</div>
     <div>{greeting}</div>
+    <div>The version is {VERSION}</div>
   </div>
 
 }

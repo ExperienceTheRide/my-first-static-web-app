@@ -7,7 +7,7 @@ import { URL } from 'url'
 
 const __dirname = new URL('.', import.meta.url).pathname
 
-const dev = {
+const dev = (version) => ({
     mode: 'development',
     target: 'web',
     entry: [path.resolve('./src/index.js')],
@@ -67,17 +67,18 @@ const dev = {
             inlineSource: '.(js|css)$'
         }),
         new CleanWebpackPlugin(),
+        new webpack.DefinePlugin({ 'VERSION': JSON.stringify(version) }),
         new NodePolyfillPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({ 'process.env.dev': true })
     ]
-}
+})
 
 import TerserPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-const production = {
+const production = (version) => ({
     mode: 'production',
     optimization: {
         minimizer: [new TerserPlugin({ /* additional options here */ })],
@@ -132,11 +133,7 @@ const production = {
             filename: "./index.html"
         }),
         new CleanWebpackPlugin(),
-        new webpack.DefinePlugin({ // <-- key to reducing React's size
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
-        }),
+        new webpack.DefinePlugin({ 'VERSION': JSON.stringify(version) }),
         new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks 
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
@@ -147,14 +144,14 @@ const production = {
         }),
         new webpack.optimize.ModuleConcatenationPlugin()
     ]
-}
+})
 
 export default (env, argv) => {
     if (env.dev) {
-        return dev
+        return dev(argv.name)
     }
     if (env.production) {
-        return production
+        return production(argv.name)
     }
     console.log('Build env not set.')
 }
