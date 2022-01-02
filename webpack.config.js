@@ -149,7 +149,10 @@ const production = (version) => ({
             chunkFilename: '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
-        new webpack.optimize.ModuleConcatenationPlugin()
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static'
+        })
     ]
 })
 
