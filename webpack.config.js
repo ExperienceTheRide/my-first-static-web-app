@@ -145,8 +145,7 @@ const production = {
             chunkFilename: '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new BundleAnalyzerPlugin()
+        new webpack.optimize.ModuleConcatenationPlugin()
     ]
 }
 
