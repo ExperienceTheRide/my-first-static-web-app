@@ -15,7 +15,7 @@ const dev = (version) => ({
     devtool: 'inline-source-map',
     devServer: {
         port: 9093,
-        hot: true,
+        historyApiFallback: true,
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
