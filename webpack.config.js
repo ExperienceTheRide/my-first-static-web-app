@@ -157,12 +157,11 @@ const production = (version) => ({
 })
 
 export default (env, argv) => {
+    dotenv.config({ path: `./.env` })
     if (env.dev) {
-        dotenv.config({ path: `./.env.dev` })
         return dev(argv.name)
     }
     if (env.production) {
-        dotenv.config({ path: `./.env.production` })
         return production(argv.name)
     }
     console.log('Build env not set.')
