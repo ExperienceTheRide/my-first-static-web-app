@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { publish, subscribe } from '@experiencetheride/local-message-router';
-import './test'
+import './name-getter'
 
 function App() {
   const [greeting, setGreeting] = useState('')
