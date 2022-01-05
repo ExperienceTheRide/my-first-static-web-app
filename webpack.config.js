@@ -63,9 +63,10 @@ const dev = (version) => ({
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html",
+            template: "./public/index.html",
             filename: "./index.html",
-            inlineSource: '.(js|css)$'
+            favicon: "./public/favicon.ico",
+            manifest: "./public/manifest.json"
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
@@ -73,7 +74,6 @@ const dev = (version) => ({
             'MODE': JSON.stringify(process.env.MODE)
         }),
         new NodePolyfillPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({ 'process.env.dev': true })
     ]
 })
@@ -124,7 +124,7 @@ const production = (version) => ({
                 ]
             },
             {
-                test: /\.(png|svg|jpg|gif|mp3)$/,
+                test: /\.(png|svg|jpg|gif|mp3|ico)$/,
                 use: [
                     { loader: 'url-loader' }
                 ]
@@ -133,8 +133,10 @@ const production = (version) => ({
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html",
-            filename: "./index.html"
+            template: "./public/index.html",
+            filename: "./index.html",
+            favicon: "./public/favicon.ico",
+            manifest: "./public/manifest.json"
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({

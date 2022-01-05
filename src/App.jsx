@@ -17,7 +17,7 @@ function App() {
 
 
   return <div>
-    <div>Hello {value}</div>
+    <div>Hello {value}!</div>
     <div>The time is now {Date()}.</div>
     <div>{greeting}</div>
     <div>The version is {VERSION}</div>
