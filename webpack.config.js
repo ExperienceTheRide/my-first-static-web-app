@@ -62,8 +62,7 @@ const dev = (version) => ({
         new HtmlWebpackPlugin({
             template: "./public/index.html",
             filename: "./index.html",
-            favicon: "./public/favicon.ico",
-            manifest: "./public/manifest.json"
+            favicon: "./public/favicon.ico"
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
@@ -132,8 +131,7 @@ const production = (version) => ({
         new HtmlWebpackPlugin({
             template: "./public/index.html",
             filename: "./index.html",
-            favicon: "./public/favicon.ico",
-            manifest: "./public/manifest.json"
+            favicon: "./public/favicon.ico"
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
