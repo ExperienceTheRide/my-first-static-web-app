@@ -10,7 +10,7 @@ function Dashboard() {
       <meta name="description" content="Access to all Commander functions" />
       <title>Commander Dashboard</title>
     </Helmet>
-        <div>This is the dashboard!</div>
+        <div data-testid="text">This is the dashboard!</div>
     </div>
 }
 
