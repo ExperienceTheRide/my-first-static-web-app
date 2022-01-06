@@ -54,10 +54,7 @@ const dev = (version) => ({
             },
             {
                 test: /\.(png|svg|jpg|gif|mp3)$/,
-                loader: "url-loader",
-                options: {
-                    limit: Infinity // everything
-                }
+                loader: "url-loader"
             },
         ]
     },
@@ -124,7 +121,7 @@ const production = (version) => ({
                 ]
             },
             {
-                test: /\.(png|svg|jpg|gif|mp3|ico)$/,
+                test: /\.(png|svg|jpg|gif|mp3)$/,
                 use: [
                     { loader: 'url-loader' }
                 ]
