@@ -10,7 +10,7 @@ function Bus() {
       <meta name="description" content="Cloud and chat pluigin for Commander bus app" />
       <title>Bus Commander</title>
     </Helmet>
-        <div>This is the Bus!</div>
+        <div data-testid="text">This is the Bus!</div>
     </div>
 }
 
