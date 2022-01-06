@@ -38,6 +38,7 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+          app_build_command: 'npm test && npm run build'
         env:
           PRIVATE_PKG_PAT: ${{ secrets.PRIVATE_PKG_PAT}}
 
