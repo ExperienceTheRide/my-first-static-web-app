@@ -21,6 +21,6 @@ describe('Dashboard', () => {
 
     it('renders without crashing', () => {
         const { getByTestId } = render(<Dashboard />);
-        expect(getByTestId("text").textContent).toBe('This is the Bus!')
+        expect(getByTestId("text").textContent).toBe('This is the dashboard!')
     })
 })
