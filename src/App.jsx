@@ -20,7 +20,7 @@ function App() {
   return <div>
     <Helmet>
       <meta charset="utf-8" />
-      <link rel="icon" type="image/x-icon" href="favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="./favicon.ico" />
       <meta name="description" content="Live Ride bus status updates" />
       <title>Ride Bus Updates</title>
     </Helmet>
