@@ -15,20 +15,19 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Check for Updated Release Number
-        id: pkg
-        uses: kriasoft/check-version@v1
-        with:
-          path: "."
-          format: "{name}_v{version}+build.{pr_number}.zip"
+      - name: Check if version has been updated
+        id: check
+        uses: EndBug/version-check@v1
 
-      - run: |
-          echo "name: ${{ steps.pkg.outputs.name }}"
-          echo "version: ${{ steps.pkg.outputs.version }}"
-          echo "release: ${{ steps.pkg.outputs.release }}"
-        #
+      - name: Log when changed
+        if: steps.check.outputs.changed == 'true'
+        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+      - name: Fail if unchanged
+        if: steps.check.outputs.changed == 'false'
+        run: |
+          'echo "No version change"' 
+          exit 1
 
   build_and_deploy_job:
     if: github.event_name == 'push'
