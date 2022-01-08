@@ -45,10 +45,10 @@ jobs:
           msg: ${{ steps.new-version.outputs.current-version}}
           separator: "."
       - name: Test For New Version
-        if: (1 == 1 && 1 == 1 && 2 == 1) || 
-          (1 == 1 && 1 == 1 && 2 < 1) || 
-          (1 == 1 && 1 < 1) || 
-          (1 < 1)
+        if: (${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} == ${{ steps.split-latest.outputs._1}} && ${{ steps.split-new.outputs._2}} == ${{ steps.split-latest.outputs._2}}) || 
+          (${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} == ${{ steps.split-latest.outputs._1}} && ${{ steps.split-new.outputs._2}} < ${{ steps.split-latest.outputs._2}}) || 
+          (${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} < ${{ steps.split-latest.outputs._1}}) || 
+          (${{ steps.split-new.outputs._0}} < ${{ steps.split-latest.outputs._0}})
         run:  |
           echo ${{ steps.split-new.outputs._0}}.${{ steps.split-new.outputs._1}}.${{ steps.split-new.outputs._2}} not newer than ${{ steps.split-latest.outputs._0}}.${{ steps.split-latest.outputs._1}}.${{ steps.split-latest.outputs._2}} |
           exit 1
