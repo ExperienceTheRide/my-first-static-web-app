@@ -21,7 +21,7 @@ jobs:
         id: pkg
         uses: kriasoft/check-version@v1
         with:
-          path: "api"
+          path: "."
           format: "{name}_v{version}+build.{pr_number}.zip"
 
       - run: |
