@@ -16,36 +16,9 @@ jobs:
     environment: dev
     name: Build and Deploy Job
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           submodules: true
-      - name: Fetch Latest Release Version
-        id: latest-version
-        uses: reloc8/action-latest-release-version@1.0.0
-      - name: Split Latest
-        uses: jungwinter/split@v2
-        id: split-latest
-        with:
-          msg: ${{ steps.latest-version.outputs.latest-release }}
-          separator: "."
-      - name: Get New Version
-        id: new-version
-        uses: martinbeentjes/npm-get-version-action@master
-      - name: Split New
-        uses: jungwinter/split@v2
-        id: split-new
-        with:
-          msg: ${{ steps.new-version.outputs.current-version}}
-          separator: "."
-      - name: Test For New Version
-        if: (${{ steps.split-new.outputs._0 }} == ${{ steps.split-latest.outputs._0 }} && ${{ steps.split-new.outputs._1 }} == ${{ steps.split-latest.outputs._1 }} && ${{ steps.split-new.outputs._2 }} == ${{ steps.split-latest.outputs._2 }}) || 
-          (${{ steps.split-new.outputs._0 }} == ${{ steps.split-latest.outputs._0 }} && ${{ steps.split-new.outputs._1 }} == ${{ steps.split-latest.outputs._1 }} && ${{ steps.split-new.outputs._2 }} < ${{ steps.split-latest.outputs._2 }}) || 
-          (${{ steps.split-new.outputs._0 }} == ${{ steps.split-latest.outputs._0 }} && ${{ steps.split-new.outputs._1 }} < ${{ steps.split-latest.outputs._1 }}) || 
-          (${{ steps.split-new.outputs._0 }} < ${{ steps.split-latest.outputs._0 }})
-        run:  |
-          echo ${{ steps.split-new.outputs._0}}.${{ steps.split-new.outputs._1}}.${{ steps.split-new.outputs._2}} not newer than ${{ steps.split-latest.outputs._0}}.${{ steps.split-latest.outputs._1}}.${{ steps.split-latest.outputs._2}} |
-          exit 1
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1
         with:
