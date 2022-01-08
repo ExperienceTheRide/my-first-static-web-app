@@ -6,7 +6,7 @@ function Bus() {
     return <div>
     <Helmet>
       <meta charset="utf-8" />
-      <link rel="icon" type="image/x-icon" href="favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="./favicon.ico" />
       <meta name="description" content="Cloud and chat pluigin for Commander bus app" />
       <title>Bus Commander</title>
     </Helmet>
