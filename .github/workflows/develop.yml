@@ -16,7 +16,8 @@ jobs:
     environment: dev
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           submodules: true
       - name: Fetch Latest Release Version
