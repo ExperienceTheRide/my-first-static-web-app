@@ -16,7 +16,8 @@ jobs:
     environment: production
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           submodules: true
       - name: Make envfile
@@ -41,6 +42,17 @@ jobs:
           app_build_command: 'npm test && npm run build'
         env:
           PRIVATE_PKG_PAT: ${{ secrets.PRIVATE_PKG_PAT}}
+      - name: Get Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.package-version.outputs.current-version}}
+          release_name: Release ${{ steps.package-version.outputs.current-version}}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
