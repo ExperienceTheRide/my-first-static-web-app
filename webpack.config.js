@@ -4,19 +4,13 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import NodePolyfillPlugin from "node-polyfill-webpack-plugin"
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import webpack from 'webpack'
+import { merge } from 'webpack-merge'
 import { URL } from 'url'
 
 const __dirname = new URL('.', import.meta.url).pathname
 
-const dev = (version) => ({
-    mode: 'development',
-    target: 'web',
+const common = (version) => ({
     entry: [path.resolve('./src/index.js')],
-    devtool: 'inline-source-map',
-    devServer: {
-        port: 9093,
-        hot: true,
-    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js'
@@ -37,6 +31,37 @@ const dev = (version) => ({
                     fullySpecified: false,
                 },
             },
+            {
+                test: /\.(png|svg|jpg|gif|mp3)$/,
+                use: [
+                    { loader: 'url-loader' }
+                ]
+            },
+        ]
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'VERSION': JSON.stringify(version),
+            'MODE': JSON.stringify(process.env.MODE)
+        }),
+        new HtmlWebpackPlugin({
+            template: "./public/index.html",
+            filename: "./index.html",
+            favicon: "./public/favicon.ico"
+        }),
+        new CleanWebpackPlugin()
+    ]
+})
+
+const dev = () => ({
+    mode: 'development',
+    devtool: 'inline-source-map',
+    devServer: {
+        port: 9093,
+        historyApiFallback: true,
+    },
+    module: {
+        rules: [
             {
                 test: /\,html$/,
                 use: [
@@ -52,29 +77,13 @@ const dev = (version) => ({
                     'css-loader'
                 ]
             },
-            {
-                test: /\.(png|svg|jpg|gif|mp3)$/,
-                loader: "url-loader",
-                options: {
-                    limit: Infinity // everything
-                }
-            },
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/index.html",
-            filename: "./index.html",
-            inlineSource: '.(js|css)$'
-        }),
-        new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
-            'VERSION': JSON.stringify(version),
-            'MODE': JSON.stringify(process.env.MODE)
+            'process.env.dev': true
         }),
-        new NodePolyfillPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.DefinePlugin({ 'process.env.dev': true })
+        new NodePolyfillPlugin()
     ]
 })
 
@@ -82,32 +91,14 @@ import TerserPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-const production = (version) => ({
+const production = () => ({
     mode: 'production',
+    devtool: 'source-map',
     optimization: {
         minimizer: [new TerserPlugin({ /* additional options here */ })],
     },
-    entry: [path.resolve('./src/index.js')],
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js'
-    },
     module: {
         rules: [
-            {
-                test: /\.(m?js|jsx)$/,
-                exclude: /node_modules/,
-                use: [
-                    "source-map-loader",
-                    { loader: "babel-loader" }
-                ],
-            },
-            {
-                test: /\.m?js/,
-                resolve: {
-                    fullySpecified: false,
-                },
-            },
             {
                 test: /\,html$/,
                 use: [
@@ -123,24 +114,13 @@ const production = (version) => ({
                     'css-loader'
                 ]
             },
-            {
-                test: /\.(png|svg|jpg|gif|mp3)$/,
-                use: [
-                    { loader: 'url-loader' }
-                ]
-            },
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/index.html",
-            filename: "./index.html"
-        }),
-        new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
-            'VERSION': JSON.stringify(version),
-            'MODE': JSON.stringify(process.env.MODE)
+            'process.env.production': true
         }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks 
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
@@ -149,7 +129,6 @@ const production = (version) => ({
             chunkFilename: '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
         new BundleAnalyzerPlugin({
             analyzerMode: 'static'
         })
@@ -157,13 +136,12 @@ const production = (version) => ({
 })
 
 export default (env, argv) => {
+    dotenv.config({ path: `./.env` })
     if (env.dev) {
-        dotenv.config({ path: `./.env.dev` })
-        return dev(argv.name)
+        return merge(common(argv.name), dev())
     }
     if (env.production) {
-        dotenv.config({ path: `./.env.production` })
-        return production(argv.name)
+        return merge(common(argv.name), production())
     }
     console.log('Build env not set.')
 }
