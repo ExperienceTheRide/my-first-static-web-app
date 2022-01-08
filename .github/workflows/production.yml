@@ -18,8 +18,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Check for Updated Release Number
+        id: pkg
         uses: kriasoft/check-version@v1
-        with: { path: "." }
+        with:
+          path: "api"
+          format: "{name}_v{version}+build.{pr_number}.zip"
+
+      - run: |
+          echo "name: ${{ steps.pkg.outputs.name }}"
+          echo "version: ${{ steps.pkg.outputs.version }}"
+          echo "release: ${{ steps.pkg.outputs.release }}"
+        #
 
   build_and_deploy_job:
     if: github.event_name == 'push'
