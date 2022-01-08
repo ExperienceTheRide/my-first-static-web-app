@@ -6,7 +6,7 @@ function Dashboard() {
     return <div>
     <Helmet>
       <meta charset="utf-8" />
-      <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="./favicon.ico?v=2" />
       <meta name="description" content="Access to all Commander functions" />
       <title>Commander Dashboard</title>
     </Helmet>
