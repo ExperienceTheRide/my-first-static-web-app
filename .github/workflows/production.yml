@@ -50,10 +50,10 @@ jobs:
           (${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} < ${{ steps.split-latest.outputs._1}}) || 
           (${{ steps.split-new.outputs._0}} < ${{ steps.split-latest.outputs._0}}))
         run:  |
-          echo ${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} == ${{ steps.split-latest.outputs._1}} && ${{ steps.split-new.outputs._2}} == ${{ steps.split-latest.outputs._2}}
-          echo ${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} == ${{ steps.split-latest.outputs._1}} && ${{ steps.split-new.outputs._2}} < ${{ steps.split-latest.outputs._2}}
-          echo ${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} < ${{ steps.split-latest.outputs._1}}
-          echo ${{ steps.split-new.outputs._0}} < ${{ steps.split-latest.outputs._0}}
+          echo ${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} == ${{ steps.split-latest.outputs._1}} && ${{ steps.split-new.outputs._2}} == ${{ steps.split-latest.outputs._2}} |
+          echo ${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} == ${{ steps.split-latest.outputs._1}} && ${{ steps.split-new.outputs._2}} < ${{ steps.split-latest.outputs._2}} |
+          echo ${{ steps.split-new.outputs._0}} == ${{ steps.split-latest.outputs._0}} && ${{ steps.split-new.outputs._1}} < ${{ steps.split-latest.outputs._1}} |
+          echo ${{ steps.split-new.outputs._0}} < ${{ steps.split-latest.outputs._0}} |
           exit 1
       - name: Build And Deploy
         id: builddeploy
