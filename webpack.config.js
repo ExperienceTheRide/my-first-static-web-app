@@ -10,10 +10,14 @@ import { URL } from 'url'
 const __dirname = new URL('.', import.meta.url).pathname
 
 const common = (version) => ({
-    entry: [path.resolve('./src/index.js')],
+    entry: {
+        'main': path.resolve('./src/index.js'),
+        'bus': path.resolve('./src/Bus/index.js'),
+        'dashboard': path.resolve('./src/Dashboard/index.js'),
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js'
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -45,9 +49,25 @@ const common = (version) => ({
             'MODE': JSON.stringify(process.env.MODE)
         }),
         new HtmlWebpackPlugin({
+            inject: 'body',
             template: "./public/index.html",
             filename: "./index.html",
-            favicon: "./public/favicon.ico"
+            favicon: "./public/favicon.ico",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            inject: 'body',
+            template: "./public/index.html",
+            filename: "./bus.html",
+            favicon: "./public/favicon.ico",
+            chunks: ['bus'],
+        }),
+        new HtmlWebpackPlugin({
+            inject: 'body',
+            template: "./public/index.html",
+            filename: "./dashboard.html",
+            favicon: "./public/favicon.ico",
+            chunks: ['dashboard'],
         }),
         new CleanWebpackPlugin()
     ]
@@ -57,8 +77,7 @@ const dev = () => ({
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-        port: 9093,
-        historyApiFallback: true,
+        port: 9093
     },
     module: {
         rules: [
@@ -96,6 +115,9 @@ const production = () => ({
     devtool: 'source-map',
     optimization: {
         minimizer: [new TerserPlugin({ /* additional options here */ })],
+        splitChunks: {
+          chunks: "all",
+        },
     },
     module: {
         rules: [
