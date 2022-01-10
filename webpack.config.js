@@ -115,9 +115,6 @@ const production = () => ({
     devtool: 'source-map',
     optimization: {
         minimizer: [new TerserPlugin({ /* additional options here */ })],
-        splitChunks: {
-          chunks: "all",
-        },
     },
     module: {
         rules: [
