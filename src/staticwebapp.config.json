@@ -5,5 +5,11 @@
             "*.{jpg,gif,png}",
             "assets/*"
         ]
-    }
+    },
+    "routes": [
+      {
+        "route": "/bus*",
+        "allowedRoles": ["authenticated"]
+      }
+    ]
 }
