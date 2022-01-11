@@ -14,6 +14,12 @@
             ]
         }
     ],
+    "responseOverrides": {
+        "401": {
+            "redirect": "/.auth/login/aad/callback",
+            "statusCode": 302
+        }
+    },
     "auth": {
         "identityProviders": {
             "azureActiveDirectory": {
