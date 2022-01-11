@@ -16,7 +16,7 @@
     ],
     "responseOverrides": {
         "401": {
-            "redirect": "/.auth/login/aad/callback",
+            "redirect": "/.auth/login/aad/callback?post_login_redirect_uri=https://www.theridedev.com/bus",
             "statusCode": 302
         }
     },
