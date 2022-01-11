@@ -24,6 +24,7 @@ function Bus() {
     </Helmet>
     <div data-testid="text">This is the Bus!</div>
     <div>Static Greeting: {greeting}</div>
+    <div>You are authorized</div>
   </div>
 }
 
