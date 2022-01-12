@@ -20,7 +20,6 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: mhoffner/inter-repo-action-triggering
           event-type: my-event
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "test": "test message"}'
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
