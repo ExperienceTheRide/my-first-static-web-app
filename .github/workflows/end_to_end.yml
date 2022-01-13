@@ -1,0 +1,19 @@
+name: End To End Test
+
+on:
+  workflow_run:
+    workflows: ["Staging CI/CD"]
+    branches: [staging]
+    types:
+      - completed
+
+jobs:
+  run_end_to_end_tests:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    name: End To End Test Run
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+    # RUN THE TESTS HERE

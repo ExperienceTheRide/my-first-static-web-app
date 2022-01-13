@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../assets/css/styles.css';
-import App from './App.jsx';
+import '../../assets/css/styles.css';
+import Dashboard from './Dashboard.jsx';
 
 ReactDOM.render(
-    <App />,
+    <Dashboard />,
     document.body.appendChild(document.createElement("div"))
 )

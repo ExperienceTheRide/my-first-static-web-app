@@ -5,5 +5,30 @@
             "*.{jpg,gif,png}",
             "assets/*"
         ]
+    },
+    "routes": [
+        {
+            "route": "/bus*",
+            "allowedRoles": [
+                "authenticated"
+            ]
+        }
+    ],
+    "responseOverrides": {
+        "401": {
+            "redirect": "/.auth/login/aad?post_login_redirect_uri=https://www.theridedev.com/bus",
+            "statusCode": 302
+        }
+    },
+    "auth": {
+        "identityProviders": {
+            "azureActiveDirectory": {
+                "registration": {
+                    "openIdIssuer": "https://login.microsoftonline.com/909c65f9-e5be-47b3-abd5-8735b02617fc/v2.0",
+                    "clientIdSettingName": "AAD_CLIENT_ID",
+                    "clientSecretSettingName": "AAD_CLIENT_SECRET"
+                }
+            }
+        }
     }
 }

@@ -1,38 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import { publish, subscribe } from '@experiencetheride/local-message-router';
-import { initialize } from './name-getter'
+import { initialize } from '../name-getter'
 
-function App() {
+function Bus() {
   const [greeting, setGreeting] = useState('')
-  const value = 'World';
 
   useEffect(() => {
-    initialize('Home')
-
+    initialize('Bus')
     subscribe('response', ({ greeting }) => {
       setGreeting(greeting)
     })
 
     publish({ route: 'call' })
-
-  }, [])
-
+  })
 
   return <div>
     <Helmet>
       <meta charset="utf-8" />
       <link rel="icon" type="image/x-icon" href="./favicon.ico?v=2" />
-      <meta name="description" content="Live Ride bus status updates" />
-      <title>Ride Bus Updates</title>
+      <meta name="description" content="Cloud and chat pluigin for Commander bus app" />
+      <title>Bus Commander</title>
     </Helmet>
-    <div>Hello {value}!</div>
-    <div>The time is now {Date()}.</div>
+    <div data-testid="text">This is the Bus!</div>
     <div>Static Greeting: {greeting}</div>
-    <div>The version is {VERSION}</div>
-    <div>The mode is {MODE}</div>
+    <div>You are authorized</div>
   </div>
-
 }
 
-export default App;
+export default Bus;
