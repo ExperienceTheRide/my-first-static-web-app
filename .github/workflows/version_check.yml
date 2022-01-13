@@ -3,11 +3,11 @@ name: Version Check
 on:
   push:
     branches:
-      - main
+      - staging
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
-      - main
+      - staging
 
 jobs:
 
