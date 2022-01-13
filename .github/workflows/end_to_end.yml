@@ -17,3 +17,9 @@ jobs:
         with:
           submodules: true
     # RUN THE TESTS HERE
+      - name: Deploy To Production
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: mhoffner/my-first-static-web-app
+          event-type: deploy-staging-to-main
