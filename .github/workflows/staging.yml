@@ -5,7 +5,7 @@ on:
     branches:
       - staging
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [closed]
     branches:
       - staging
 
