@@ -43,6 +43,12 @@ jobs:
           app_build_command: "npm test && npm run build"
         env:
           PRIVATE_PKG_PAT: ${{ secrets.PRIVATE_PKG_PAT}}
+      - name: Deploy Functions
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: mhoffner/inter-repo-action-triggering
+          event-type: deploy-staging-to-main
       - name: Get Release Number
         id: new-version
         uses: martinbeentjes/npm-get-version-action@master

@@ -10,16 +10,6 @@ on:
       - develop
 
 jobs:
-  preflight-job:
-    name: First Step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          repository: mhoffner/inter-repo-action-triggering
-          event-type: deploy-staging-to-main
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
