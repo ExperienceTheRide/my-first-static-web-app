@@ -1,0 +1,32 @@
+name: Merge To Main
+
+on:
+  repository_dispatch:
+    types: [deploy-staging-to-main]
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: open-pull-request
+      id: open-pr
+      uses: repo-sync/pull-request@v2
+      with:
+        source_branch: "develop"
+        destination_branch: "main"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_label: "auto-pr"
+        pr_title: "Pulling latest staging into main" # Title of pull request
+        pr_body: ":crown:  *Automated PR*"           # Full markdown support, requires pr_title to be set
+    - name: approve-pull-request
+      uses: hmarr/auto-approve-action@v2
+      with:
+        github-token: "${{ secrets.REPO_ACCESS_TOKEN }}"
+        pull-request-number: ${{steps.open-pr.outputs.pr_number}}
+    - name: automerge
+      uses: "pascalgn/automerge-action@v0.14.3"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        MERGE_LABELS: "auto-pr"
+        PULL_REQUEST: ${{steps.open-pr.outputs.pr_number}}
