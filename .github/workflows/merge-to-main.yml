@@ -2,7 +2,7 @@ name: Merge To Main
 
 on:
   repository_dispatch:
-    types: [deploy-staging-to-main]
+    types: [push-staging-to-main]
 
 jobs:
   pull-request:
