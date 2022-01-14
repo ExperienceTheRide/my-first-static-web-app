@@ -1,6 +1,6 @@
 {
   "name": "hello",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "private": true,
   "type": "module",
   "devDependencies": {
@@ -9,6 +9,7 @@
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "@babel/runtime": "^7.16.0",
+    "@playwright/test": "^1.17.2",
     "@testing-library/react": "^12.1.2",
     "babel-jest": "^27.3.1",
     "babel-loader": "^8.2.3",
@@ -19,6 +20,7 @@
     "jest": "^27.3.1",
     "mini-css-extract-plugin": "^2.4.5",
     "node-polyfill-webpack-plugin": "^1.1.4",
+    "playwright": "^1.17.2",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.2.5",
@@ -40,7 +42,8 @@
     "start": "webpack-dev-server --open --env dev --name ${npm_package_version}",
     "build": "webpack --env production --name ${npm_package_version}",
     "test": "jest --coverage",
-    "watch-test": "jest --watch --coverage"
+    "watch-test": "jest --watch --coverage",
+    "e2e": "playwright test --config=e2e/playwright.config.js"
   },
   "eslintConfig": {
     "extends": "react-app"
