@@ -18,6 +18,8 @@ jobs:
           submodules: true
       - name: Install Dependencies
         run: npm i
+        env:
+          PRIVATE_PKG_PAT: ${{ secrets.PRIVATE_PKG_PAT}}
       - name: Run End To End Tests
         run: npm run e2e
       - name: Deploy To Production
