@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
+          ref: 'staging'
       - name: Install Dependencies
         run: npm i
         env:
