@@ -22,4 +22,4 @@ jobs:
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: mhoffner/my-first-static-web-app
-          event-type: deploy-staging-to-main
+          event-type: push-staging-to-main
