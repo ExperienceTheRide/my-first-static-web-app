@@ -14,4 +14,9 @@ test.describe('dashboard', () => {
     // Expect an element "to be visible".
   await expect(page.locator('text=This is the dashboard!').first()).toBeVisible()
   })
+
+  test('it fails', async ({ page }) => {
+    // Expect an element "to be visible".
+  await expect(page.locator('text=This is NOT the dashboard!').first()).toBeVisible()
+  })
 })
