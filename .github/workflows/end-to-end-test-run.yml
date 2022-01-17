@@ -11,12 +11,20 @@ jobs:
   run_end_to_end_tests:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    environment: staging
     name: End To End Test Run
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
           ref: 'staging'
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_LOGIN: ${{secrets.LOGIN}}
+          envkey_PASSWORD: ${{secrets.PASSWORD}}
+          directory: './e2e/'
+          file_name: '.env'
       - name: Install Dependencies
         run: npm i
         env:
