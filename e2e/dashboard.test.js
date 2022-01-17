@@ -1,17 +1,35 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('dashboard', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('https://white-field-06767c70f.1.azurestaticapps.net/dashboard')
-  })
+    test('it redirects', async ({ page }) => {
+        await page.goto('https://nyccommanderdevdashboard.z13.web.core.windows.net/')
 
-  test('it shows the title', async ({ page }) => {
-    // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Commander Dashboard/)
-  })
+        await expect(page).toHaveTitle(/Ride Commander/)
+        await expect(page).not.toHaveTitle(/Ride Commander/)
+        await expect(page).toHaveTitle(/Ride Commander/)
+    })
 
-  test('it shows the text', async ({ page }) => {
-    // Expect an element "to be visible".
-  await expect(page.locator('text=This is the dashboard!').first()).toBeVisible()
-  })
+    test('it shows the user name', async ({ page }) => {
+        await page.goto('https://nyccommanderdevdashboard.z13.web.core.windows.net/')
+
+        await expect(page).toHaveTitle(/Ride Commander/)
+        await expect(page).not.toHaveTitle(/Ride Commander/)
+        await expect(page).toHaveTitle(/Ride Commander/)
+
+        await expect(page.locator('text=Ride On, Test Account!').first()).toBeVisible()
+    })
+
+    test('it shows the connected user', async ({ page }) => {
+        await page.goto('https://nyccommanderdevdashboard.z13.web.core.windows.net/')
+
+        await expect(page).toHaveTitle(/Ride Commander/)
+        await expect(page).not.toHaveTitle(/Ride Commander/)
+        await expect(page).toHaveTitle(/Ride Commander/)
+
+        const userName = await page.textContent('div[class="userName"]');
+        expect(userName).toBe('Test Account');
+
+        const connections = await page.textContent('div[class="connectionCount"]');
+        expect(connections).toBe('1');
+    })
 })
