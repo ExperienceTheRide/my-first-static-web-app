@@ -1,6 +1,6 @@
 {
   "name": "hello",
-  "version": "0.2.21",
+  "version": "0.2.25",
   "private": true,
   "type": "module",
   "devDependencies": {
