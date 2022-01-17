@@ -13,7 +13,7 @@ export default {
   retries: process.env.CI ? 2 : 0,
   use: {
     trace: 'on-first-retry',
-    storageState: 'state.json'
+    storageState: path.join(__dirname, 'state.json')
   },
   projects: [
     {

@@ -1,5 +1,6 @@
 
 import { chromium } from '@playwright/test'
+import fs from 'fs'
 
 export default async config => {
     const { storageState } = config.projects[0].use
@@ -23,4 +24,5 @@ export default async config => {
     ]);
     await page.context().storageState({ path: storageState });
     await browser.close()
+    return () => fs.unlink(storageState, e => (e) ? console.log(e) : null)
 }
