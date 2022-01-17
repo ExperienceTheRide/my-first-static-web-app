@@ -2,8 +2,18 @@ import { devices } from '@playwright/test'
 import dotenv from 'dotenv'
 import path from 'path'
 import { URL } from 'url'
+import fs from 'fs'
 
 const __dirname = new URL('.', import.meta.url).pathname
+try {
+  if (fs.existsSync(path.join(__dirname, '.env'))) {
+    console.log('FOUND THE ENV')
+  } else {
+    console.log('NO ENV')
+  }
+} catch(err) {
+  console.error(err)
+}
 
 dotenv.config({ path: path.join(__dirname, '.env')})
 
