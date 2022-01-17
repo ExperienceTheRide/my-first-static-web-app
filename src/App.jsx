@@ -31,6 +31,7 @@ function App() {
     <div>Static Greeting: {greeting}</div>
     <div>The version is {VERSION}</div>
     <div>The mode is {MODE}</div>
+    <div>A new line</div>
   </div>
 
 }
