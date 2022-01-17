@@ -23,7 +23,7 @@ jobs:
         with:
           envkey_LOGIN: ${{secrets.LOGIN}}
           envkey_PASSWORD: ${{secrets.PASSWORD}}
-          directory: './e2e'
+          directory: 'e2e'
           file_name: '.env'
       - name: Install Dependencies
         run: npm i
