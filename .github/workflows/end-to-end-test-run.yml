@@ -25,7 +25,9 @@ jobs:
           echo PASSWORD=${{secrets.PASSWORD}} >> ./e2e/.env
           cat ./e2e/.env
       - name: Install Dependencies
-        run: npm i
+        run: |
+          npm i
+          npx playwright install-deps
         env:
           PRIVATE_PKG_PAT: ${{ secrets.PRIVATE_PKG_PAT}}
       - name: Run End To End Tests
