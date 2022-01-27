@@ -18,6 +18,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
+      - name: Update auth redirect
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: ./src/staticwebapp.config.json
+          field: responseOverrides.401.redirect
+          value: https://blue-bay-0752a360f.azurestaticapps.net/bus
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1
         with:
