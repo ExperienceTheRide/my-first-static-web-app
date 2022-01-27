@@ -53,17 +53,6 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: mhoffner/inter-repo-action-triggering
           event-type: deploy-staging-to-main
-      - name: Get Release Number
-        id: new-version
-        uses: martinbeentjes/npm-get-version-action@master
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ steps.new-version.outputs.current-version}}
-          release_name: Release ${{ steps.new-version.outputs.current-version}}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
